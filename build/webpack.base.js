@@ -1,32 +1,59 @@
-const path=require('path');
-const webpack=require('webpack');
-const HtmlWebpackPlugin=require('html-webpack-plugin');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports={
-    entry:['babel-polyfill','./src/main.js'],
-    output:{
-        filename:'js/main.js',
-        path:path.resolve(__dirname,'dist')
+    devtool :"#source-map",
+    entry:{
+        app: './src/main.js'
     },
-    devServer:{
-        contentBase:"./dist",
-        inline: true//实时刷新
+    output:{
+        path:path.resolve(__dirname,'../dist/'),
     },
     module:{
         rules:[
+            {
+                test:/\.css$/,
+                use:ExtractTextPlugin.extract({
+                    fallback:"style-loader",
+                    use:[
+                        {loader:'css-loader'},
+                        {loader:'postcss-loader'}
+                    ],
+                    // publicPath:'../'
+                })
+            },
+            {
+                test:/\.(png|jpg|gif)/,
+                use:[{
+                    loader:'url-loader',
+                    options:{
+                        limit:50000,
+                    }
+                }]
+            },
             {
                 test:/\.js$/,
                 exclude:/(node_modules)/,
                 use:{
                     loader:'babel-loader'
                 }
+            },
+            {
+                test:/\.html$/,
+                use:[{
+                    loader:"html-loader",
+                    options:{
+                        minimize:true
+                    }
+                }]
             }
         ]
     },
     plugins:[
         new HtmlWebpackPlugin({
-            template:'./index.html',
-            hash:true, //会在打包好的bundle.js后面加上hash串
-        })
+            filename:path.join(__dirname,"../dist/index.html"),
+            template:path.join(__dirname,"../index.html")
+        }),
     ]
 };
