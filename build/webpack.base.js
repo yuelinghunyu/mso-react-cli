@@ -10,8 +10,23 @@ module.exports={
     output:{
         path:path.resolve(__dirname,'../dist/'),
     },
+    resolve:{
+        extensions: ['.jpg', '.js']
+    },
     module:{
         rules:[
+            {
+                test:/\.(png|jpe?g|gif|svg)$/i,
+                use:[
+                    {
+                        loader:"url-loader",
+                        options:{
+                            limit:8192,
+                            name: 'static/img/[name].[ext]?[hash]'
+                        }
+                    }
+                ]
+            },
             {
                 test:/\.css$/,
                 use:ExtractTextPlugin.extract({
@@ -20,24 +35,15 @@ module.exports={
                         {loader:'css-loader'},
                         {loader:'postcss-loader'}
                     ],
-                    // publicPath:'../'
+                    publicPath:'../'
                 })
-            },
-            {
-                test:/\.(png|jpg|gif)/,
-                use:[{
-                    loader:'url-loader',
-                    options:{
-                        limit:50000,
-                    }
-                }]
             },
             {
                 test:/\.js$/,
                 exclude:/(node_modules)/,
-                use:{
+                use:[{
                     loader:'babel-loader'
-                }
+                }]
             },
             {
                 test:/\.html$/,

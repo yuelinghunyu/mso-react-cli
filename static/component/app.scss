@@ -1,4 +1,29 @@
 @import '../common/base.scss';
 .app-container{
     font-size: $font-default-size;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:100px auto 0px;
+    img{
+        width: 70px;
+        height: 70px;
+    }
+    .logo-text{
+        width: 100%;
+        font-size: 28px;
+        color: #3e3a39;
+        font-family: jianhei;
+        line-height: 50px;
+        text-align: center;
+    }
+    .slogon-text{
+        width: 100%;
+        font-size: 13px;
+        color: #888888;
+        text-align: center;
+        line-height: 50px;
+    }
 }
