@@ -1,21 +1,17 @@
 import "./app.scss";
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import {HashRouter as Router} from 'react-router-dom'
+// 添加路由
+import RouterIndex from '@/router/router'
 class App extends Component{
-    constructor() {
-        super()
-        this.state = {
-            logo: require('#/img/logo.jpg')
-        }
-    }
     render(){
         return(
-            <div className='app-container'>
-                <img src={this.state.logo} />
-                <p className="logo-text">jdj react</p>
-                <p className="slogon-text">不念过去、不畏将来</p>
-            </div>
+            <Router>
+                <div className='app-container'>
+                    <RouterIndex></RouterIndex>
+                </div>
+            </Router>
         )
     }
 }
-export default App;
+export default App

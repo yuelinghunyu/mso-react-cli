@@ -43,7 +43,7 @@ const rules = [
             loader: 'babel-loader',
             options: {
                 presets: ['@babel/preset-react'],
-                plugins: ['@babel/transform-react-jsx']
+                plugins: ['@babel/transform-react-jsx', '@babel/plugin-proposal-class-properties']
             }
         }]
         // 不检查node_modules下的js文件
